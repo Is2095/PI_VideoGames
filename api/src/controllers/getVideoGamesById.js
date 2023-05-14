@@ -1,29 +1,20 @@
 
-const axios = require('axios');
-
-require('dotenv').config();
-
-const { API_KEY } = process.env;
-const prueba = {}
+const {getByIdApiHandlers, getByIdBDHandlers} = require('../handlers/index')
 
 const getVideoGamesById = async (req, res) => {
-    const {idVG} = req.params;
+    const { idVG } = req.params;
+    const { source} = req.body;
     try {
-        const {data} = await axios.get(`https://api.rawg.io/api/games/${idVG}?key=${API_KEY}`)
-       const videoGameIdDatos = {
-            name:  data.name,
-            image: data.background_image,
-            description: data.description,
-            platforms:  data.platforms?.map(el =>el.platform.name),
-            released:  data.released,
-            rating:  data.rating,
-            geners:  data.genres?.map(el => el.name)
-        }
-        res.status(200).json(videoGameIdDatos)        
+        if (source === 'api')  {
+            const gamesApi = await getByIdApiHandlers(idVG);
+            return res.status(200).json(gamesApi)} 
+        if (source === 'db') {
+            const gamesBD = await getByIdBDHandlers(idVG)  
+            return res.status(200).json(gamesBD)
+        };                          
     } catch (error) {
         res.status(500).json({error:error.message})
-    }
-    
+    }  
 };
 
 module.exports = getVideoGamesById;

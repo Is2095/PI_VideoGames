@@ -1,20 +1,9 @@
 
 const {Router} = require('express');
 const routeVideoGames = Router();
-const {getVideoGames, postVideoGames, getVideoGameByQuery, getVideoGamesById} = require('../controllers/index')
+const {getVideoGames, postVideoGames, getVideoGamesById} = require('../controllers/index')
 
-routeVideoGames.get('/', (req, res) =>{
-    const {name} = req.query;
- 
-  if (name) {
-    const query = getVideoGameByQuery(name)
-    res.status(200).json(query)
-  }
-  else  {
-    const query2 = getVideoGames ()
-    res.status(200).json(query2);
-  } 
-});
+routeVideoGames.get('/', getVideoGames);
 
 routeVideoGames.post('/', postVideoGames);
 

@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             autoIncrement: true,
         },
         name: {
-            type: DataTypes.ENUM('card','educational','board games','family','fighting','sports','racing','massively','multiplayer','platformer','arcade','puzzle','simulation', 'casual','shooter', 'strategy','rpg', 'adventure','indie','action'),
+            type: DataTypes.STRING,
             allowNull: false,
         },
     }, 
