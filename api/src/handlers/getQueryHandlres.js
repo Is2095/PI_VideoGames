@@ -1,55 +1,75 @@
 
 const axios = require('axios');
-const {Op} = require('sequelize')
 
-const {Videogame, Genres} = require('../db')
+const {Videogame, Genres, Platform} = require('../db')
 
 require('dotenv').config();
 const { API_KEY, URL_QUERY } = process.env;
 
-const getQueryHandlers = async (name, page, source) => {
-    if(source === 'api'){
-        const {data}= await axios.get(`${URL_QUERY}%${name}%&key=${API_KEY}&page=${page}&page_size=15`);
-        const dataApi = {
-            countApi: data.count,
-            dataApi: data.results.map(el =>{
-                return {
-                    id: el.id,
-                    name:el.name,
-                    image: el.image,
-                    // description: el.description,
-                    // platforms: el.platforms.map(el=>el.platform.name),
-                    // released: el.released,
-                    // rating: el.rating,
-                    genres: el.genres.map(el=>el.name),
-                    createdInDb: false,
-                    }
-                })
+const getQueryHandlers = async (name) => {
+ 
+    let videosGamesAllName = [];
+    let uno = {};
+    let dos = {};
+    let tres = {};
+    let datos = [];
+    let videosGamesApi= []
+    
+    uno = await axios.get(`${URL_QUERY}%${name}%&key=${API_KEY}&page_size=40`);
+
+    if (uno.data.next !== null) {
+
+        dos = await axios.get(uno.data.next)
+       
+        if (dos.data.next !== null) {
+      
+            if (dos.data.next !== null)  {
+                tres = await axios.get(dos.data.next)
+                datos = uno.data.results.concat(dos.data.results.concat(tres.data.results))
+            };
+
+        } else datos = uno.data.results.concat(dos.data.results);
+
+    } else datos = uno.data.results
+   
+    if(uno.data.results.length !== 0) {
+        videosGamesApi = datos?.map(e=> {
+            return {
+                id: e.id,
+                name: e.name,
+                image: e.background_image,
+                release: e.released,
+                rating: e.rating,
+                createdInDb: false,
+                platforms: e.platforms?.map(e => {return {name: e.platform.name}}),
+                genres: e.genres?.map(el => {return {name: el.name}})
             }
-            if (dataApi.dataApi.length === 0) throw Error('Api Videogame does not exist');
-            return dataApi;
-        }
-        if (source === 'db'){
-            const dataDb = await Videogame.findAll({
-                attributes: ['id','name', 'image'],
-                //attributes: ['id','name', 'image', 'description', 'platforms', 'released', 'rating'],
-                where: {
-                name: {
-                    [Op.iLike]: `%${name}%`
-                } 
-            },
-            include: {
+        });
+    } else videosGamesApi = []
+
+    let datosBD  = await Videogame.findAll({
+        include: [
+            {
                 model: Genres,
-                attributes:['name'],
                 through: {
-                    attributes:[]
-                }
+                    attributes: [],
+                }, attributes: ['name'],
             },
-        })
-        const dataDbPage = dataDb.filter(el=> el.id > (page * 15 - 15 ) && el.id <= (page * 15))
-        if (dataDbPage.length === 0) throw Error('Database Videogame does not exist')
-        return dataDbPage;
-    }
+            {
+                model: Platform,  
+                through: {
+                    attributes: [],
+                },attributes: ['name'],
+            }
+        ]
+    });
+    let videosGamesBd = datosBD.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()))
+
+    if(videosGamesApi.length !==0 && videosGamesBd.length !==0) videosGamesAllName=(videosGamesBd.concat(videosGamesApi))
+    if(videosGamesApi.length ===0 && videosGamesBd.length !==0) videosGamesAllName=(videosGamesBd);
+    if(videosGamesApi.length !==0 && videosGamesBd.length ===0) videosGamesAllName=(videosGamesApi)
+   
+    return  videosGamesAllName
 
 }
 

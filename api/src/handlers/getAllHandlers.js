@@ -1,41 +1,51 @@
 
 const axios = require('axios');
-const {Videogame, Genres} = require('../db')
+const {Videogame, Genres, Platform} = require('../db');
 
 require('dotenv').config();
 const { API_KEY, URL_VIDEOSJUEGOS } = process.env;
 
-const getAllHandlers = async (page, source) => {
+const getAllHandlers = async () => {
 
-    console.log(source);
-    if(source === 'api'){
-        const {data}= await axios.get(`${URL_VIDEOSJUEGOS}${API_KEY}&${page}&page_size=5`)
-        
-        const videoGameAPI  = data.results.map(el=> {
-                return {
-                    id: el.id,
-                    name: el.name,
-                    image: el.background_image,
-                    createdInDb: false,
-                    genres: el.genres.map(el => {return {name: el.name}})
-                }
-            });
-        return videoGameAPI
-    }
-    if (source === 'db'){
-        const videoGameBD  = await Videogame.findAll({
-                attributes: ['id', 'name', 'image', 'createdInDb'],
-                include: {
+    const one = await axios(`${URL_VIDEOSJUEGOS}${API_KEY}&page_size=40`);
+    const two = await axios(one.data.next);
+    const tree = await axios(two.data.next);
+
+    const datos = one.data.results.concat(two.data.results.concat(tree.data.results));
+
+    const datosFiltrados = datos.map(e => {
+        return {
+            id: e.id,
+            name: e.name,
+            image: e.background_image,
+            release: e.released,
+            rating: e.rating,
+            createdInDb: false,
+            platforms: e.platforms.map(e => {return {name: e.platform.name}}),
+            genres: e.genres.map(el => {return {name: el.name}})
+        }
+    })
+   
+    const datosBD  = await Videogame.findAll({
+                include: [
+                {
                     model: Genres,
-                    attributes: ['name'],
+                   
                     through: {
                         attributes: [],
-                    }
+                    }, attributes: ['name'],
+                },
+                {
+                    model: Platform,
+                    
+                    through: {
+                        attributes: [],
+                    },attributes: ['name'],
                 }
+                ]
             });
-        const videoGameDbPage = videoGameBD.filter(el=> el.id > (page * 15 - 15 ) && el.id <= (page * 15))
-        return videoGameDbPage;
-    };
+    const datoTotal = datosFiltrados.concat(datosBD)
+    return datoTotal;
 };
 
 module.exports = getAllHandlers;

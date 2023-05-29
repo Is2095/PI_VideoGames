@@ -1,0 +1,32 @@
+.landing {
+width: 100vw;
+height: 100vh;
+position: absolute;
+    /* background-image: url('../../imagenes/1_5225.webp'); */
+    background-image: url('../../imagenes/th\ \(8\).jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    /* background-attachment: fixed;
+     */
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    font-size: 50px;
+}
+/* .landing {
+    background: rgb(144, 144, 235);
+} */
+.landingButton {
+    text-align: center;
+    cursor: pointer;
+    /* border-style: none; */
+    border-radius: 15px;
+}
+.landingButton:hover {
+    transition: .3s;
+    transform: scale(1.3);
+}
