@@ -9,7 +9,7 @@ import style from './Home.module.css';
 
 import { DATA_ERRORS } from '../../Redux/Actions/actionType';
 
-import { Card, Filters, Pagination, ModalErrores, Search } from '../../components/index';
+import { Card, Filters, Pagination, SelectPerPage, ModalErrores, Search, Loading } from '../../components/index';
 
 const Home = () => {
 
@@ -24,73 +24,79 @@ const Home = () => {
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     
     const currentGames = gamesRender.slice(indexOfFirstGame, indexOfLastGame);
-
-    useEffect (() => {
-        dispatch(getAllGames());
-        dispatch(getGenres())
-        dispatch(getPlatforms())
-    },[dispatch])
     
     const pagination = (pageNumber) => {
         setCurrentPage(pageNumber);       
     }
+
+    useEffect (() => {
+        if(gamesRender.length=== 0) {
+             dispatch(getAllGames());
+            dispatch(getGenres())
+            dispatch(getPlatforms())
+        }
+    },[gamesRender.length, dispatch])
 
     const handlerClearFilters = () => {
         dispatch(clearFilters());
     }
 
     const cierreModal = () => {
-        const apa = 'aksjdhflkasjhdfk'
-        console.log('cerrando modal home');
         dispatch({type:DATA_ERRORS, payload: {}})
     }
 
     return (
-        <div>    
-            <ModalErrores cierreModal={cierreModal}/>       
-            <div>
-
-                <div>
-                   <Pagination 
-                    gamesPerPage={gamesPerPage}
-                    allGames={gamesRender.length}
-                    pagination={pagination}
-                    currentPage={currentPage}
-                    />
-                </div>
-                <div>
-                    <Search/>
-                </div>
-                <div>
-                   <Filters
-                        setCurrentPage={setCurrentPage}
-                        setOtro={setOtro}
-                    />
-                    <button onClick={handlerClearFilters}>Clear Filters</button>
-                  
-                </div>
-                <div className={style.cards}>
-                    {
-                       currentGames.length !== 0 
-                       ? currentGames?.map(ele => {
-                            return (
-                                <div className={style.card}>
-                                    <Card
-                                    key={ele.id}
-                                    id={ele.id}
-                                    name={ele.name}
-                                    image={ele.image}
-                                    rating={ele.rating}
-                                    genres={ele.genres}
+        <div className={style.principal}>    
+            <ModalErrores cierreModal={cierreModal}/>  
+            { gamesRender.length === 0 
+                ? (<Loading/>)
+                : (
+                    <div className={style.containerGeneral}>
+                        <div className={style.pagination}>
+                            <Pagination 
+                                gamesPerPage={gamesPerPage}
+                                allGames={gamesRender.length}
+                                pagination={pagination}
+                                currentPage={currentPage}
                                 />
-                                </div>                             
-                            )
-                        })
-                        : null
-                    }
-                </div>
-                <div></div>
-            </div>
+                            <SelectPerPage
+                                setGamePerPage={setGamePerPage}
+                            />
+                        </div>
+                        <div className={style.containerCardfFiltros}>
+                            <div className={style.filtros}>
+                                <Search/>
+                                
+                                <Filters
+                                    setCurrentPage={setCurrentPage}
+                                    setOtro={setOtro}
+                                />
+                                <button className={style.filterButton} onClick={handlerClearFilters}>Clear Filters</button>
+                            </div>
+                        
+                            <div className={style.cards}>
+                                {
+                                currentGames.length !== 0 
+                                ? currentGames?.map((ele, index) => {
+                                        return (
+                                            <div key={index} className={style.card}>
+                                                <Card
+                                                id={ele.id}
+                                                name={ele.name}
+                                                image={ele.image}
+                                                rating={ele.rating}
+                                                genres={ele.genres}
+                                            />
+                                            </div>                             
+                                        )
+                                    })
+                                    : null
+                                }
+                            </div>
+                        </div>
+                    </div>          
+                )
+            }     
         </div>
     )
 };

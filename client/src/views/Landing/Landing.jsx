@@ -6,9 +6,9 @@ import style from './Landing.module.css'
 const Landing = () => {
     return (
         <div className={style.landing}>
-            <h1 className={style.landingCartel}>Welcome to VIDEOGAME API</h1>
+            <p className={style.landingCartel}>Welcome to VIDEOGAME API</p>
             <Link to='/home'>
-                <button className={style.landingButton}>Home Page</button>
+                <button className={style.landingButton}>Start...</button>
             </Link>
         </div>
     )

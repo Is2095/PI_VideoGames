@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterGenres, orderRating, orderAlpha, filterGamesApiBd
  } from "../../Redux/Actions/actions";
 
+import style from './Filters.module.css'
+
 const Filters = ({setCurrentPage, setOtro}) => {
     const dispatch = useDispatch();
     
@@ -29,9 +31,9 @@ const Filters = ({setCurrentPage, setOtro}) => {
     }
 
     return (
-        <div>
+        <div className={style.divGeneral}>
             <div>
-                <select onChange={handleFilterBd}>
+                <select onChange={handleFilterBd} className={style.select}>
                     <option>Source</option>
                     <option value="all">All</option>
                     <option value="api">Api</option>
@@ -39,7 +41,7 @@ const Filters = ({setCurrentPage, setOtro}) => {
                 </select>
                 </div>
                 <div>
-                <select onChange={handleOrder}>
+                <select onChange={handleOrder} className={style.select}>
                     <option>Order </option>
                     <optgroup label="Order by Rating">
                          <option value="ascRating">Ascendente</option>
@@ -51,14 +53,14 @@ const Filters = ({setCurrentPage, setOtro}) => {
                     </optgroup>                      
                 </select>
             </div>
-            <select onChange={handleFilterGenre}>
+            <select onChange={handleFilterGenre} className={style.select}>
                <option>Filter</option>
                 <optgroup label="Filter by genres">
                     <option value="all">All</option>
                         {
-                            genres?.map(e=>{
+                            genres?.map((e, index)=>{
                                 return (
-                                    <option value={e.name}>{e.name}</option>
+                                    <option key={index} value={e.name}>{e.name}</option>
                                 )
                             })
                         }

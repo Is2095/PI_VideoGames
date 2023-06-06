@@ -1,13 +1,15 @@
 
+.card {
+    display: flex;
+    flex-direction: column;
+}
 .image {
 
-    width: 200px;
-    height: 100px;
+    width: 12rem;
+    height: 3.5rem;
     justify-content: center;
-    border: 1px solid green;
     border-radius: 5px;
 }
-
 .genres {
     display: flex;
     flex-direction: row;
@@ -20,10 +22,34 @@
 .navlinks {
     text-decoration: none;
     color: black;
-    /* color: rgba(48, 30, 9, 0.616); */
 }
-/* .card {
-    /*width: fit-content;
-    height: fit-content;
-     
-} */
+@media (max-width: 760px) {
+    .image {
+        width: 12rem;
+        height: 6rem;
+    }
+}
+@media (min-width: 768px) {
+    .image {
+        width: 11.5rem;
+        height: 5.5rem;
+    }
+}
+@media (min-width: 1024px) {
+    .image {
+        width: 11rem;
+        height: 5.5rem;
+    }
+}
+@media (min-width: 1280px) {
+    .image {
+        width: 11rem;
+        height: 5.5rem;
+    }
+}
+@media (min-width: 1700px) {
+    .image {
+        width:15rem;
+        height: 7rem;
+    }
+}

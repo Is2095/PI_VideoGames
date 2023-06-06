@@ -1,18 +1,19 @@
 
-//import './App.css';
 import  { Routes, Route, useLocation } from 'react-router-dom';
 
 import { Home, Form, Detail, Landing, NavBar } from './views';
 
-import { FormPlatforms, FormGenre, Error404 } from './components/index'
+import { FormPlatforms, FormGenre, Error404 } from './components/index';
+
+import style from './App.module.css'
 
 function App() {
   const {pathname} = useLocation();
 
   return (
-    <div className="App">
+    <div className={style.App}>
      
-    {pathname !== '/' ? <NavBar/> :<Landing/>} 
+    {pathname !== '/' ? <NavBar/> : null} 
 
        <Routes>
         <Route exact path='/' element={<Landing/>} />

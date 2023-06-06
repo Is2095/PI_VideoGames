@@ -1,14 +1,18 @@
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import style from "./NavBar.module.css";
 
 const NavBar = () => {
+    const navLink = ({isActive}) => (isActive ? style.active : style.disable)
     return (
-        <div className={style.mainContainer}>
-            <Link to='/create'>Create Videogame</Link>          
-            <Link to='/home'>Home Page</Link>
-            <Link to='/'>Exit</Link>
+        <div className={style.principal}>
+            <div className={style.mainContainer}>
+                <NavLink to='/create' className={navLink}>CREATE VIDEOGAME</NavLink>          
+                <NavLink to='/home' className={navLink}>HOME</NavLink>
+                <NavLink to='/' className={navLink}>EXIT</NavLink>
+            </div>
         </div>
+       
     )
 };
 

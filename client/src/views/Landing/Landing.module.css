@@ -1,32 +1,45 @@
+
 .landing {
-width: 100vw;
-height: 100vh;
-position: absolute;
-    /* background-image: url('../../imagenes/1_5225.webp'); */
-    background-image: url('../../imagenes/th\ \(8\).jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../../imagenes/3562.jpg');
     background-position: center center;
-    background-size: 100%;
-    /* background-attachment: fixed;
-     */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    text-align: center;
-    font-size: 50px;
 }
-/* .landing {
-    background: rgb(144, 144, 235);
-} */
-.landingButton {
+.landingCartel{
+    margin: 0;
+    padding-top: 4%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    color:rgb(221, 220, 220);
+    text-shadow: 6px 4px 6px blue;
+    font-size: 6vw;
+    font-family:cursive;
+    font-style: oblique;
+}
+ .landingButton {
+    background-color: rgb(227, 233, 239, 0);
+    color: white;
+    font-size: 3vw;
+    margin-left: 45%;
+    margin-right: 40%;
+    border: none;
+    margin-top: 10vw;
     text-align: center;
     cursor: pointer;
-    /* border-style: none; */
-    border-radius: 15px;
-}
-.landingButton:hover {
-    transition: .3s;
-    transform: scale(1.3);
+    border-style: none; 
+    font-family: cursive;
+    text-shadow: 6px 4px 6px blue;    
+} 
+ .landingButton:hover {
+      transition: .3s;
+    font-size: 4vw;
 }

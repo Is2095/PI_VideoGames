@@ -5,11 +5,12 @@ import { GET_ALLGAMES, CLEAR_FILTERS, GET_GENRES, FILTER_GENRES, ORDER_RATING, O
 export const getAllGames = () => {   
     return async function (dispatch) {
 
-        const endponint = 'http://localhost:3001/videogames/';  
+        const endpoint = 'http://localhost:3001/videogames/';  
         try {
-            const { data } = await axios.get(`${endponint}`);
+            const { data } = await axios.get(endpoint);
             return dispatch({type: GET_ALLGAMES, payload: data})            
         } catch (error) {
+            console.log(error);
            return dispatch({type:DATA_ERRORS, payload: error})
         }  
     };

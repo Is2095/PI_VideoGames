@@ -8,7 +8,9 @@ import FormPlatforms from "./FormPlatforms/FormPlatforms";
 import ModalErrores from "./ModalErrores/ModalErrores";
 import NavBar from "./NavBar/NavBar";
 import Pagination from "./Paginado/Pagination";
+import SelectPerPage from "./SelectPerPage/SelectPerPage";
 import Search from "./Search/Search";
+import Loading from "./Loading/Loading";
 
 export {
     Card,
@@ -20,5 +22,7 @@ export {
     ModalErrores,
     NavBar,
     Pagination,
-    Search
+    SelectPerPage,
+    Search,
+    Loading,
 }

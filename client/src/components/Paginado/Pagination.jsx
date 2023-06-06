@@ -8,7 +8,7 @@ import style from './Pagination.module.css'
         pageNumber.push(i)
     }
     return (
-        <nav>
+        <nav className={style.navP}>
             <ul className={style.listUl}>
                 {pageNumber?.map(number=>(
                     <li className={style.itemsNumbers}>
@@ -18,6 +18,7 @@ import style from './Pagination.module.css'
                     </li>
                 ))}     
             </ul>
+           
         </nav>
     )
 };
