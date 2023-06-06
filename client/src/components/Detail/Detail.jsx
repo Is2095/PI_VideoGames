@@ -17,11 +17,12 @@ const Detail = () => {
     const {id} = useParams();
 
     const dispatch = useDispatch();  
-    const detail = useSelector(state=> state.detail);
-    // const genresDetail = detail.genres;
-    // const platformsDetail = detail.platforms;
 
-   useEffect(() => {
+    const detail = useSelector(state=> state.detail);
+
+console.log(detail.image);
+
+    useEffect(() => {
         dispatch(cleanDetail(id));
         dispatch(getDetail(id));
     },[id]);
@@ -29,6 +30,8 @@ const Detail = () => {
     const cierreModal = () => {
         dispatch({type:DATA_ERRORS, payload: {}});
     }
+
+console.log(detail.image);
 
     return (
         <div className={style.containerDetail}>
@@ -38,7 +41,7 @@ const Detail = () => {
                 ? <h2 className={style.source}>Data base Videogame</h2>
                 : <h2 className={style.source}>Api Videogame</h2>
             }
-            <div className={style.nameImage} > 
+             <div className={style.nameImage} > 
                     <div>
                         <h1 className={style.nameV}>{detail.name}</h1>
                         <img src={detail.image} alt="not found" className={style.imagen}/>
@@ -61,9 +64,9 @@ const Detail = () => {
                 <h2 className={style.h5a}>Genres:
                     <p className={style.genres}> 
                             {
-                                detail.genres?.map((e, index)=>{
+                                detail.genres?.map((e)=>{
                                     return (
-                                    <span key={index} className={style.spanA}> "{e}" </span>
+                                    <span  className={style.spanA}> "{e.name}" </span>
                                     )
                                 })
                             }
@@ -73,16 +76,16 @@ const Detail = () => {
                  className={style.h5a}>Platforms:          
                             <p className={style.platforms}> 
                             {
-                                detail.platforms?.map((e, index) => {
+                                detail.platforms?.map((e) => {
                                     return (
-                                    <span key={index} className={style.spanA}> "{e.name}"</span>
+                                    <span className={style.spanA}> "{e.name}"</span>
                                     )
                                 })
                             }
                             </p>
                 </h2>
             </div>
-            <div className={style.descripcion} >
+           <div className={style.descripcion} >
                 <h2>Description: <p className={style.descriptionDatos}>{<div dangerouslySetInnerHTML={{__html: detail.description}}/>}</p></h2>
             </div>
 

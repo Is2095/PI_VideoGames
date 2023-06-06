@@ -23,10 +23,10 @@ const getQueryHandlers = async (name) => {
        
         if (dos.data.next !== null) {
       
-            if (dos.data.next !== null)  {
+           
                 tres = await axios.get(dos.data.next)
                 datos = uno.data.results.concat(dos.data.results.concat(tres.data.results))
-            };
+            
 
         } else datos = uno.data.results.concat(dos.data.results);
 

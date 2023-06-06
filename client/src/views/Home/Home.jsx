@@ -30,12 +30,12 @@ const Home = () => {
     }
 
     useEffect (() => {
-        if(gamesRender.length=== 0) {
-             dispatch(getAllGames());
+        if(gamesRender.length === 0) {
+            dispatch(getAllGames());
             dispatch(getGenres())
             dispatch(getPlatforms())
         }
-    },[gamesRender.length, dispatch])
+    },dispatch)
 
     const handlerClearFilters = () => {
         dispatch(clearFilters());
@@ -77,9 +77,9 @@ const Home = () => {
                             <div className={style.cards}>
                                 {
                                 currentGames.length !== 0 
-                                ? currentGames?.map((ele, index) => {
+                                ? currentGames?.map((ele) => {
                                         return (
-                                            <div key={index} className={style.card}>
+                                            <div key={ele.id} className={style.card}>
                                                 <Card
                                                 id={ele.id}
                                                 name={ele.name}

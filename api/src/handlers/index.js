@@ -5,7 +5,9 @@ const getAllHandlers = require('./getAllHandlers');
 const getQueryHandlers = require('./getQueryHandlres');
 const getGenresHandlres = require('./getGenersHandlres');
 const getPlatformHandlres = require('./getPlatformHandlres');
-const cargaGenresApi = require('./cargaGenersAPI')
+const cargaGenresApi = require('./cargaGenersAPI');
+const getAllHandlersBd = require('./getAllHandlersBd');
+const getAllHandlersApi = require('./getAllHandlersApi');
 
 module.exports = {
     getByIdApiHandlers,
@@ -15,5 +17,7 @@ module.exports = {
     getQueryHandlers,
     getGenresHandlres,
     getPlatformHandlres,
+    getAllHandlersBd,
+    getAllHandlersApi,
     cargaGenresApi,
 }

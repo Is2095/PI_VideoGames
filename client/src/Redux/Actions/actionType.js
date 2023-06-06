@@ -12,4 +12,6 @@ export const GET_DETAIL = 'GET_DETAIL';
 export const POST_VIDEOGAMES = 'POST_VIDEOGAMES';
 export const DATA_ERRORS = 'DATA_ERRORS';
 export const GET_GAMES_BY_NAME = 'GET_GAMES_BY_NAME';
-export const CLEAN_SEARCH = 'CLEAN_SEARCH'
+export const CLEAN_SEARCH = 'CLEAN_SEARCH';
+export const CLEAN_GAMES = 'CLEAN_GAMES';
+export const GET_ALLGAMESBD = 'GET_ALLGAMESBD';

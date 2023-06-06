@@ -16,7 +16,7 @@ const getByIdApiHandlers = async (id) => {
              platforms: data.platforms?.map(el =>el.platform),
              released: data.released,
              rating: data.rating,
-             genres: data.genres?.map(el =>el.name),
+             genres: data.genres
         }
     if(videoGameIdDatos) {
         return videoGameIdDatos

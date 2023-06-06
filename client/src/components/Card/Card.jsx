@@ -2,7 +2,7 @@
 import style from "./Card.module.css"
 import { NavLink } from "react-router-dom";
 
-const Card = ({key, id, name, image, genres, rating, createdInDb}) => {
+const Card = ({id, name, image, genres, rating}) => {
     return (
         <div className={style.card}>
             <NavLink className={style.navlinks} to={`/videoGames/${id}`}>
@@ -13,9 +13,9 @@ const Card = ({key, id, name, image, genres, rating, createdInDb}) => {
                   <p>
                     Genres: 
                     {
-                        genres?.map((e, index) => {
+                        genres?.map((e) => {
                             return (
-                                <span key={index} className={style.genres}>
+                                <span className={style.genres}>
                                     {` "${e.name}" `}
                                 </span>
                             )

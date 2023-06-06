@@ -9,9 +9,9 @@
 
 .loading {
     color: white;
-    width: 70px;
-    height: 70px;
-    border: 10px solid #eee;
+    width: 100px;
+    height: 100px;
+    border: 15px solid #eee;
     border-top: 15px solid #666;
     border-radius: 50%;
     animation-name: girar;

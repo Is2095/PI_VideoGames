@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { GET_ALLGAMES, CLEAR_FILTERS, GET_GENRES, FILTER_GENRES, ORDER_RATING, ORDER_ALPHA, GET_PLATFORMS,FILTER_GAMESAPIBD, CLEAN_DETAIL, GET_DETAIL, POST_VIDEOGAMES, DATA_ERRORS, GET_GAMES_BY_NAME, CLEAN_SEARCH } from './actionType';
+import { GET_ALLGAMES, CLEAR_FILTERS, GET_GENRES, FILTER_GENRES, ORDER_RATING, ORDER_ALPHA, GET_PLATFORMS,FILTER_GAMESAPIBD, CLEAN_DETAIL, GET_DETAIL, POST_VIDEOGAMES, DATA_ERRORS, GET_GAMES_BY_NAME, CLEAN_SEARCH, CLEAN_GAMES, GET_ALLGAMESBD } from './actionType';
 
 export const getAllGames = () => {   
     return async function (dispatch) {
@@ -10,7 +10,6 @@ export const getAllGames = () => {
             const { data } = await axios.get(endpoint);
             return dispatch({type: GET_ALLGAMES, payload: data})            
         } catch (error) {
-            console.log(error);
            return dispatch({type:DATA_ERRORS, payload: error})
         }  
     };
@@ -59,7 +58,7 @@ export const getGamesByName = (name) => {
         try {
             const gamesName = await axios.get(`${endponint}?name=${name}`)
             if (gamesName.data.length === 0) dispatch({type:DATA_ERRORS, payload: {message: 'Videogame not found'}}) 
-            return dispatch({type: GET_GAMES_BY_NAME, payload: gamesName.data})
+            else return dispatch({type: GET_GAMES_BY_NAME, payload: gamesName.data})
         } catch (error) {
             return dispatch({type:DATA_ERRORS, payload: error})           
         }
@@ -68,7 +67,7 @@ export const getGamesByName = (name) => {
 
 export const postVideoGames = (form) => {
     const endponint = 'http://localhost:3001/videogames';
-    return async () => {
+    return async (dispatch) => {
         try {
             const createGame = await axios.post(endponint, form);
             
@@ -76,13 +75,27 @@ export const postVideoGames = (form) => {
             return createGame
             
         } catch (error) {
-          //dispatch( {type: DATA_ERRORS, payload: error})   
+          dispatch( {type: DATA_ERRORS, payload: error})   
     }
    } 
 }
+export const cleanGames = () => { return {type: CLEAN_GAMES, payload: []}}
 
-export const filterGamesApiBd = (typeSource) => { return {type: FILTER_GAMESAPIBD, payload: typeSource} };
-
+export const filterGamesApiBd =  (typeSource) => {
+    return async function (dispatch) {
+        let endpoint = '';
+        if(typeSource === 'db')  endpoint = 'http://localhost:3001/videogames/db'
+        else if (typeSource === 'api') endpoint = 'http://localhost:3001/videogames/api'
+        else endpoint = 'http://localhost:3001/videogames/';
+        try {
+            const { data } = await axios.get(endpoint);
+            return dispatch({type: GET_ALLGAMESBD, payload: data})            
+        } catch (error) {
+            if(error.response.data) return dispatch({type:DATA_ERRORS, payload: error.response.data})
+            else return dispatch({type:DATA_ERRORS, payload: error})
+        }  
+    } 
+}
 export const filterGenres = (genre) => { return {type: FILTER_GENRES, payload: genre} };
 
 export const orderRating = (typeOrder) => { return {type: ORDER_RATING, payload: typeOrder} };

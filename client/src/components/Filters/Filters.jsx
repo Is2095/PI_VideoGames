@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { filterGenres, orderRating, orderAlpha, filterGamesApiBd
+import { filterGenres, orderRating, orderAlpha, filterGamesApiBd, getAllGames
  } from "../../Redux/Actions/actions";
 
 import style from './Filters.module.css'
@@ -58,9 +58,9 @@ const Filters = ({setCurrentPage, setOtro}) => {
                 <optgroup label="Filter by genres">
                     <option value="all">All</option>
                         {
-                            genres?.map((e, index)=>{
+                            genres?.map((e)=>{
                                 return (
-                                    <option key={index} value={e.name}>{e.name}</option>
+                                    <option value={e.name}>{e.name}</option>
                                 )
                             })
                         }

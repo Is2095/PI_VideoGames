@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import style from './Form.module.css';
 
-import  { postVideoGames } from "../../Redux/Actions/actions";
+import  { cleanGames, postVideoGames } from "../../Redux/Actions/actions";
 
 import { DATA_ERRORS } from '../../Redux/Actions/actionType';
 
@@ -105,7 +105,8 @@ const Form = () => {
         
         if(!error.name && !error.image && !error.description && !error.rating && !error.releasedDate && !error.platforms && !error.genres) {
             if(form.name.length !== 0 && form.image.length !==0 && form.description.length !== 0 && form.releasedDate.length !== 0 && form.platforms.length !== 0 && form.genres.length !== 0) { 
-                dispatch(postVideoGames(form))
+               dispatch(postVideoGames(form))
+               dispatch(cleanGames())
             }
             else dispatch({type:DATA_ERRORS, payload: {message: 'Enter all the required data'}})
         } else dispatch({type:DATA_ERRORS, payload: {message: 'Enter all the required data'}})

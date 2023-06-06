@@ -1,5 +1,6 @@
 
-import { CLEAR_FILTERS, GET_ALLGAMES, GET_GENRES, FILTER_GENRES, ORDER_ALPHA, ORDER_RATING, GET_PLATFORMS, FILTER_GAMESAPIBD,GET_DETAIL, CLEAN_DETAIL, POST_VIDEOGAMES, DATA_ERRORS, GET_GAMES_BY_NAME, CLEAN_SEARCH } from"./Actions/actionType";
+import { useDispatch } from "react-redux";
+import { CLEAR_FILTERS, GET_ALLGAMES, GET_GENRES, FILTER_GENRES, ORDER_ALPHA, ORDER_RATING, GET_PLATFORMS, FILTER_GAMESAPIBD,GET_DETAIL, CLEAN_DETAIL, POST_VIDEOGAMES, DATA_ERRORS, GET_GAMES_BY_NAME, CLEAN_SEARCH, CLEAN_GAMES, GET_ALLGAMESBD } from"./Actions/actionType";
 
 const initialState = {
     games: [],
@@ -19,6 +20,11 @@ const reducer = (state = initialState, {type, payload}) => {
             ...state,
             games: payload,
             allGames: payload,
+        }
+    case GET_ALLGAMESBD:
+        return {
+            ...state,
+            games: payload,
         }
     case GET_GENRES: 
         return {
@@ -60,6 +66,12 @@ const reducer = (state = initialState, {type, payload}) => {
             ...state,
         }
 
+    case CLEAN_GAMES:
+        return {
+            ...state,
+            games: payload
+        }
+
     case DATA_ERRORS: 
         return {
             ...state,
@@ -72,6 +84,7 @@ const reducer = (state = initialState, {type, payload}) => {
             filterSource = state.allGames.filter(e => !e.createdInDb);
         }else if (payload === 'db') {
             filterSource = state.allGames.filter(e=> e.createdInDb);
+            if(filterSource.length ===0){}
         }else {
             filterSource = state.allGames;
         };
@@ -81,8 +94,8 @@ const reducer = (state = initialState, {type, payload}) => {
         }
     case FILTER_GENRES: 
         let filtered = payload === 'all' 
-        ? state.games 
-        : state.games.filter(e=>e.genres.some(e=>e.name===payload))
+            ? state.games 
+            : state.games.filter(e=>e.genres.some(e=>e.name===payload))
         if(filtered.length === 0) {
             filtered = state.allGames;
             alert('There are no game of the indicated geners') 
