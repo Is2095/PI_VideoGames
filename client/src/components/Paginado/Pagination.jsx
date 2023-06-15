@@ -17,8 +17,7 @@ import style from './Pagination.module.css'
                         </button>
                     </li>
                 ))}     
-            </ul>
-           
+            </ul>   
         </nav>
     )
 };
