@@ -1,10 +1,10 @@
 
 const { Videogame, Genres, Platform } = require('../db')
 
-const postVGHandlers = async (name, image, description, released, rating, genres, platform, createdInDb) => {
+const postVGHandlers = async (name, image, description, released, rating, genres, platform, createdInDb, precio) => {
   
     const [crearVG, created] = await Videogame.findOrCreate({
-        where: {name, image, description, released, rating, createdInDb},
+        where: {name, image, description, released, rating, createdInDb, precio},
     })  
     if(created){
         genres.forEach(async el=> {

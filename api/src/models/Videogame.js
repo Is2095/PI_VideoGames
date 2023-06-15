@@ -42,6 +42,11 @@ module.exports = (sequelize) => {
     createdInDb: {
       type: DataTypes.BOOLEAN,
       default: true,
+    }, 
+    precio: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      default: 0,
     }
   },
     {timestamps: false}
