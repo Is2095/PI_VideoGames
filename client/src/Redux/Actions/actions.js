@@ -5,7 +5,7 @@ import { GET_ALLGAMES, CLEAR_FILTERS, GET_GENRES, FILTER_GENRES, ORDER_RATING, O
 export const getAllGames = () => {   
     return async function (dispatch) {
 
-        const endpoint = 'http://localhost:3001/videogames/';  
+        const endpoint = '/videogames/';  
         try {
             const { data } = await axios.get(endpoint);
             return dispatch({type: GET_ALLGAMES, payload: data})            
@@ -17,7 +17,7 @@ export const getAllGames = () => {
 
 export const getGenres = () => {
     return async function (dispatch) {
-        const endponint = 'http://localhost:3001/genres';
+        const endponint = '/genres';
         try {
             const {data} = await axios.get(endponint)
             return dispatch({type: GET_GENRES, payload: data})
@@ -29,7 +29,7 @@ export const getGenres = () => {
 
 export const getPlatforms = () =>{
     return async function (dispatch) {
-        const endponint = 'http://localhost:3001/platforms';
+        const endponint = '/platforms';
         try {
             const {data} = await axios.get(endponint)
             return dispatch({type: GET_PLATFORMS, payload: data})
@@ -42,7 +42,7 @@ export const getPlatforms = () =>{
 export const getDetail = (id) => {
     
     return async function (dispatch) {
-        const endponint = `http://localhost:3001/videogames/${id}`
+        const endponint = `/videogames/${id}`
         try {
             const {data} = await axios.get(endponint)
             return dispatch({type: GET_DETAIL, payload: data})
@@ -54,7 +54,7 @@ export const getDetail = (id) => {
 
 export const getGamesByName = (name) => {
     return async function (dispatch) {
-        const endponint = 'http://localhost:3001/videogames/';
+        const endponint = '/videogames/';
         try {
             const gamesName = await axios.get(`${endponint}?name=${name}`)
             if (gamesName.data.length === 0) dispatch({type:DATA_ERRORS, payload: {message: 'Videogame not found'}}) 
@@ -66,7 +66,7 @@ export const getGamesByName = (name) => {
 };
 
 export const postVideoGames = (form) => {
-    const endponint = 'http://localhost:3001/videogames';
+    const endponint = '/videogames';
     return async (dispatch) => {
         try {
             const createGame = await axios.post(endponint, form);
@@ -84,9 +84,9 @@ export const cleanGames = () => { return {type: CLEAN_GAMES, payload: []}}
 export const filterGamesApiBd =  (typeSource) => {
     return async function (dispatch) {
         let endpoint = '';
-        if(typeSource === 'db')  endpoint = 'http://localhost:3001/videogames/db'
-        else if (typeSource === 'api') endpoint = 'http://localhost:3001/videogames/api'
-        else endpoint = 'http://localhost:3001/videogames/';
+        if(typeSource === 'db')  endpoint = '/videogames/db'
+        else if (typeSource === 'api') endpoint = '/videogames/api'
+        else endpoint = '/videogames/';
         try {
             const { data } = await axios.get(endpoint);
             return dispatch({type: GET_ALLGAMESBD, payload: data})            
