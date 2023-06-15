@@ -129,13 +129,4 @@ const reducer = (state = initialState, {type, payload}) => {
            return {...state}
     }
 };
-
-switch (key) {
-    case value:
-        
-        break;
-
-    default:
-        break;
-}
 export default reducer;
