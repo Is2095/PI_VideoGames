@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { getGamesByName, cleanSearch } from '../../Redux/Actions/actions'
 
@@ -15,7 +15,7 @@ const Search = () => {
     const [name, setName] = useState('');
     
     const nameHandle = (e) => {
-        const {name, value} = e.target;
+        const {value} = e.target;
         setName(value)
     }
     const searchHandle = (name) => {

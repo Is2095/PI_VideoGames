@@ -1,8 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { filterGenres, orderRating, orderAlpha, filterGamesApiBd, getAllGames
- } from "../../Redux/Actions/actions";
+import { filterGenres, orderRating, orderAlpha, filterGamesApiBd } from "../../Redux/Actions/actions";
 
 import style from './Filters.module.css'
 
