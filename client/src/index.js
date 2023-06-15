@@ -4,7 +4,13 @@ import App from './App';
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './Redux/store'
+import store from './Redux/store';
+
+import axios from 'axios';
+
+//axios.defaults.baseURL = 'http://localhost:3001' 
+axios.defaults.baseURL = 'http://pivideogames-production-7b6b.up.railway.app' 
+
 
 const root = createRoot(document.getElementById("root"));
 root.render(

@@ -35,7 +35,7 @@ const Home = () => {
             dispatch(getGenres())
             dispatch(getPlatforms())
         }
-    },dispatch)
+    },[dispatch])
 
     const handlerClearFilters = () => {
         dispatch(clearFilters());
