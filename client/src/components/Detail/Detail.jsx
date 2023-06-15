@@ -25,7 +25,7 @@ console.log(detail.image);
     useEffect(() => {
         dispatch(cleanDetail(id));
         dispatch(getDetail(id));
-    },[id]);
+    },[id, dispatch]);
 
     const cierreModal = () => {
         dispatch({type:DATA_ERRORS, payload: {}});

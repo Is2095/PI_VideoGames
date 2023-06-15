@@ -103,7 +103,6 @@ const reducer = (state = initialState, {type, payload}) => {
             ...state,
             games: filtered
         }
-        break;
     case ORDER_RATING: 
         let filterRating = payload === 'ascRating'
             ? state.games.sort((a,b) => a.rating - b.rating)

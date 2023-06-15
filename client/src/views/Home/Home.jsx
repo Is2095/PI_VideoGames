@@ -19,7 +19,7 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage, setGamePerPage] = useState(15); 
     const [otro, setOtro] = useState('')
-    
+    console.log(otro);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     
@@ -35,7 +35,7 @@ const Home = () => {
             dispatch(getGenres())
             dispatch(getPlatforms())
         }
-    },[dispatch])
+    },[])
 
     const handlerClearFilters = () => {
         dispatch(clearFilters());
